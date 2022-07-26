@@ -10,26 +10,30 @@ process blat {
   RANGE=13000
   FLOOR=8000
   MAX_TRIES=4
-  randomNumber=0
-  for (( i=0; i<= 10; i++)); do
+  for (( i=0; i<= MAX_TRIES; i++)); do
+    randomNumber=0
     while [ \$randomNumber -le \$FLOOR ]; do
       randomNumber=\$RANDOM
       let "randomNumber %= \$RANGE"
-  done
-  PORT=\$randomNumber;
-  if $params.trans ; then
-        TRANS="-trans"
+    done
+    PORT=\$randomNumber;
+    if $params.trans ; then
+      TRANS="-trans"
     else 
-        TRANS=""
+      TRANS=""
     fi
-  gfServer start localhost \$PORT data.2bit -canStop -maxAaSize=15000 \$TRANS > /dev/null 2>&1 &
+    gfServer start localhost \$PORT data.2bit -canStop -maxAaSize=15000 \$TRANS > /dev/null 2>&1 & 
+    sleep 10
+    gfServer status localhost \$PORT > temp
+    if grep "version" temp; then
+      echo Port \$PORT is active
+      break
+    else 
+      echo Attempt \$i to start server
+    fi 
   done
-  sleep 10 
-  for (( i=1; i<=\$MAX_TRIES; i++ )); do
-    echo Try \$i    
-    gfClient localhost \$PORT . subset.fa out.psl -t=$params.dbType -q=$params.queryType -dots=10 $params.blatParams -maxIntron=$params.maxIntron
-    break
-  done
+  sleep 10
+  gfClient localhost \$PORT . subset.fa out.psl -t=$params.dbType -q=$params.queryType -dots=10 $params.blatParams -maxIntron=$params.maxIntron
   gfServer stop localhost \$PORT
   """
 }
