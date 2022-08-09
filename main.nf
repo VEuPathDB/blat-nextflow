@@ -1,11 +1,12 @@
 nextflow.enable.dsl=2
 
+
 process blat {
   input:
-  path 'subset.fa'
-  path 'data.2bit'
+    path 'subset.fa'
+    path 'data.2bit'
   output:
-  path "out.psl"
+    path "out.psl"
   """
   RANGE=13000
   FLOOR=8000
