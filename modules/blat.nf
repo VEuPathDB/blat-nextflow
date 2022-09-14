@@ -19,6 +19,7 @@ process runBlat {
 workflow blat {
   take:
     seqs
+
   main:
     runBlat( seqs, params.databasePath ) \
       | collectFile( storeDir: params.outputDir )   
