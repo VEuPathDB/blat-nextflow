@@ -1,5 +1,20 @@
 # Nextflow Conversion of GenomeAlignWithGfClientTask
 
+***<p align=center>blat</p>***  
+```mermaid
+flowchart TD
+    p0((Channel.fromPath))
+    p1([splitFasta])
+    p2(( ))
+    p3[blat:runBlat]
+    p4([collectFile])
+    p5(( ))
+    p0 --> p1
+    p1 -->|seqs| p3
+    p2 -->|data.2bit| p3
+    p3 --> p4
+    p4 --> p5
+```
 ### Get Started
   * Install Nextflow
     
@@ -17,8 +32,7 @@ Main parameters:
 | outputDir  | string  | publish directory |
 | maxIntron | integer | Maximum intron size (Default 750000) |
 | dbType | string | "dna" / "prot" / "dnax" (DNA sequence translated in six frames to protein). Default is dna. |
-| queryType | string | "dna" / "prot" / "dnax" (DNA sequence translated in six frames to protein) "rnax" (DNA sequence translated in three frames to protein)
- |
+| queryType | string | "dna" / "prot" / "dnax" (DNA sequence translated in six frames to protein) "rnax" (DNA sequence translated in three frames to protein) |
 | blatParams | string | Additional parameters for gfClient |
 | trans | boolean | Translate database to protein in 6 frames |
 
