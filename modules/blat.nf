@@ -5,8 +5,8 @@ nextflow.enable.dsl=2
 process runBlat {
 
   input:
-    path 'subset.fa'
-    path 'data.2bit'
+    path subsetFasta
+    path databasePath
 
   output:
     path "out.psl"

@@ -16,7 +16,7 @@ for (( i=0; i<= MAX_TRIES; i++)); do
   else 
     TRANS=""
   fi
-  gfServer start localhost \$PORT data.2bit \
+  gfServer start localhost \$PORT $databasePath \
     -canStop \
     -maxAaSize=15000 \$TRANS > /dev/null 2>&1 & 
   sleep 10
@@ -29,7 +29,7 @@ for (( i=0; i<= MAX_TRIES; i++)); do
   fi 
 done
 sleep 10
-gfClient localhost \$PORT . subset.fa out.psl \
+gfClient localhost \$PORT . $subsetFasta out.psl \
   -t=$params.dbType \
   -q=$params.queryType \
   -dots=10 $params.blatParams \
