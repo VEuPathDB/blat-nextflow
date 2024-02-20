@@ -5,16 +5,16 @@ nextflow.enable.dsl=2
 // Param Checking 
 //---------------------------------------------------------------
 
-if(params.seqFile) {
-  seqs = Channel.fromPath( params.seqFile )
-           .splitFasta( by:params.fastaSubsetSize, file:true )
+if(params.genomeFasta) {
+  genomicSeqs = Channel.fromPath( params.genomeFasta )
+    .splitFasta( by:params.fastaSubsetSize, file:true )
 }
 else {
-  throw new Exception("Missing params.seqFile")
+  throw new Exception("Missing params.genomeFasta")
 }
 
-if(!params.databasePath) {
-  throw new Exception("Missing params.databasePath")
+if(!params.queryFasta) {
+  throw new Exception("Missing params.queryFasta")
 }
 
 //---------------------------------------------------------------
@@ -28,5 +28,5 @@ include { blat } from './modules/blat.nf'
 //---------------------------------------------------------------
 
 workflow {
-  blat(seqs)
+  blat(genomicSeqs)
 }
