@@ -5,8 +5,8 @@ nextflow.enable.dsl=2
 process runBlat {
 
   input:
-    path subsetFasta
-    path databasePath
+    path genomeSubsetFasta
+    path queryFasta
 
   output:
     path "out.psl"
@@ -21,6 +21,5 @@ workflow blat {
     seqs
 
   main:
-    runBlat( seqs, params.databasePath ) \
-      | collectFile( storeDir: params.outputDir )   
+    runBlat(seqs, params.queryFasta) | collectFile( storeDir: params.outputDir )
 }
