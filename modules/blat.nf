@@ -27,5 +27,5 @@ workflow blat {
     seqs
 
   main:
-    runBlat(seqs, params.queryFasta) | collectFile( storeDir: params.outputDir )
+  runBlat(seqs, params.queryFasta) | collectFile( name: params.outputFileName, storeDir: params.outputDir )
 }
