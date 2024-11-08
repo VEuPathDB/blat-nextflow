@@ -3,6 +3,7 @@ nextflow.enable.dsl=2
 
 
 process runBlat {
+  container = 'veupathdb/blat:latest'
 
   input:
     path genomeSubsetFasta
@@ -12,7 +13,12 @@ process runBlat {
     path "out.psl"
 
   script:
-    template 'runBlat.bash'
+  """
+  blat $genomeSubsetFasta $queryFasta out.psl  \
+  -t=$params.dbType \
+  -noHead \
+  -q=$params.queryType ${task.ext.args}
+  """
 }
 
 
