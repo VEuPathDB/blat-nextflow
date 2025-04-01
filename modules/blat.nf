@@ -3,7 +3,7 @@ nextflow.enable.dsl=2
 
 
 process runBlat {
-  container = 'veupathdb/blat:latest'
+  container = 'veupathdb/blat:1.0.0'
 
   input:
     path genomeSubsetFasta
