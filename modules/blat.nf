@@ -3,7 +3,7 @@ nextflow.enable.dsl=2
 
 
 process runBlat {
-  container = 'veupathdb/blat:1.0.0'
+  container = 'veupathdb/blat:1.1.0'
 
   input:
     path genomeSubsetFasta
@@ -25,7 +25,6 @@ process runBlat {
 workflow blat {
   take:
     seqs
-
   main:
-  runBlat(seqs, params.queryFasta) | collectFile( name: params.outputFileName, storeDir: params.outputDir )
+    runBlat(seqs, params.queryFasta) | collectFile( name: params.outputFileName, storeDir: params.outputDir )
 }
